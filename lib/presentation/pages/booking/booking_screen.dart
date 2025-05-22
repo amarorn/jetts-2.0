@@ -6,7 +6,6 @@ import '../../../design_system/tokens/app_typography.dart';
 import '../../../design_system/tokens/app_radius.dart';
 import '../../../design_system/components/cards/boat_card.dart';
 import 'package:intl/intl.dart';
-import '../../pages/payment/payment_routes.dart';
 
 class BookingScreen extends StatefulWidget {
   final BoatModel boat;
@@ -451,13 +450,23 @@ class _BookingScreenState extends State<BookingScreen> {
                   onPressed: _selectedRange == null || _isLoading
                       ? null
                       : () async {
-                          if (_selectedPaymentMethod == PaymentMethod.creditCard || _selectedPaymentMethod == PaymentMethod.debitCard) {
-                            Navigator.pushNamed(context, '/payment-card');
-                          } else if (_selectedPaymentMethod == PaymentMethod.pix) {
-                            Navigator.pushNamed(context, '/payment-pix');
-                          } else {
-                            Navigator.pushNamed(context, PaymentRoutes.payment);
-                          }
+                          setState(() => _isLoading = true);
+                          await Future.delayed(const Duration(seconds: 2));
+                          if (!mounted) return;
+                          setState(() => _isLoading = false);
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Reserva Confirmada!'),
+                              content: const Text('Sua reserva foi realizada com sucesso.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
                         },
                   child: _isLoading
                       ? const CircularProgressIndicator()

@@ -141,67 +141,84 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       decoration: BoxDecoration(
         gradient: page.gradient,
       ),
-      child: Stack(
-        children: [
-          // Efeito de mar (onda)
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ClipPath(
-              clipper: _WaveClipper(),
+      child: SafeArea(
+        child: Column(
+          children: [
+            // Image Section
+            Expanded(
+              flex: 3,
               child: Container(
-                height: size.height * 0.25,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.blue.shade200.withOpacity(0.7),
-                      Colors.blue.shade400.withOpacity(0.8),
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+                padding: const EdgeInsets.all(AppSpacing.xxl),
+                child: Center(
+                  child: Image.asset(
+                    page.image,
+                    height: size.height * 0.4,
+                    fit: BoxFit.contain,
+                  ).animate().fadeIn(delay: 200.ms).scale(
+                    begin: const Offset(0.8, 0.8),
+                    duration: 600.ms,
+                    curve: Curves.elasticOut,
                   ),
                 ),
               ),
             ),
-          ),
-          // Conteúdo centralizado
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    page.title,
-                    style: AppTypography.displayMedium.copyWith(
-                      color: Colors.white,
-                      fontWeight: AppTypography.bold,
+
+            // Content Section
+            Expanded(
+              flex: 2,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Title
+                    Text(
+                      page.title,
+                      style: AppTypography.displayMedium.copyWith(
+                        color: Colors.white,
+                        fontWeight: AppTypography.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ).animate().fadeIn(delay: 400.ms).slideY(
+                      begin: 0.3,
+                      duration: 500.ms,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-                  Text(
-                    page.subtitle,
-                    style: AppTypography.titleLarge.copyWith(
-                      color: Colors.white.withOpacity(0.9),
-                      fontWeight: AppTypography.medium,
+
+                    const SizedBox(height: AppSpacing.lg),
+
+                    // Subtitle
+                    Text(
+                      page.subtitle,
+                      style: AppTypography.titleLarge.copyWith(
+                        color: Colors.white.withOpacity(0.9),
+                        fontWeight: AppTypography.medium,
+                      ),
+                      textAlign: TextAlign.center,
+                    ).animate().fadeIn(delay: 600.ms).slideY(
+                      begin: 0.3,
+                      duration: 500.ms,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  Text(
-                    page.description,
-                    style: AppTypography.bodyLarge.copyWith(
-                      color: Colors.white.withOpacity(0.85),
+
+                    const SizedBox(height: AppSpacing.md),
+
+                    // Description
+                    Text(
+                      page.description,
+                      style: AppTypography.bodyLarge.copyWith(
+                        color: Colors.white.withOpacity(0.8),
+                        height: 1.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    ).animate().fadeIn(delay: 800.ms).slideY(
+                      begin: 0.3,
+                      duration: 500.ms,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -312,27 +329,4 @@ class OnboardingPage {
     required this.image,
     required this.gradient,
   });
-}
-
-// Clipper para efeito de onda
-class _WaveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, size.height * 0.7);
-    path.quadraticBezierTo(
-      size.width * 0.25, size.height,
-      size.width * 0.5, size.height * 0.8,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.75, size.height * 0.6,
-      size.width, size.height * 0.8,
-    );
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 } 
