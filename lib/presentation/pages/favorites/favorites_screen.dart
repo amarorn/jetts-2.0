@@ -89,7 +89,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         location: 'Rio de Janeiro, RJ',
         price: 1500.0,
         rating: 4.8,
-        imageUrl: 'https://picsum.photos/400/300?1',
+        imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
         features: ['Luxo', 'Piscina', 'Jacuzzi'],
       ),
       BoatModel(
@@ -98,7 +98,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         location: 'São Paulo, SP',
         price: 2000.0,
         rating: 4.9,
-        imageUrl: 'https://picsum.photos/400/300?2',
+        imageUrl: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80',
         features: ['Moderno', 'Bar', 'Churrasqueira'],
       ),
     ];

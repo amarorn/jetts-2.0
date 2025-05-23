@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wave/wave.dart';
 import 'package:wave/config.dart';
-import '../../../../design_system/tokens/app_colors.dart';
-import '../../../../design_system/tokens/app_spacing.dart';
-import '../../../../design_system/tokens/app_typography.dart';
-import '../../../../design_system/tokens/app_radius.dart';
 
 class WaveBottomNavBar extends StatelessWidget {
   final int currentIndex;

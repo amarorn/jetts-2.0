@@ -322,7 +322,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Rio de Janeiro, RJ',
         price: 1500.0,
         rating: 4.8,
-        imageUrl: 'https://picsum.photos/400/300?1',
+        imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
         features: ['Luxo', 'Piscina', 'Jacuzzi'],
       ),
       BoatModel(
@@ -331,7 +331,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'São Paulo, SP',
         price: 2000.0,
         rating: 4.9,
-        imageUrl: 'https://picsum.photos/400/300?2',
+        imageUrl: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80',
         features: ['Moderno', 'Bar', 'Churrasqueira'],
       ),
       BoatModel(
@@ -340,7 +340,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Florianópolis, SC',
         price: 800.0,
         rating: 4.5,
-        imageUrl: 'https://picsum.photos/400/300?3',
+        imageUrl: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
         features: ['Rápido', 'Econômico', 'Prático'],
       ),
       BoatModel(
@@ -349,7 +349,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Salvador, BA',
         price: 1200.0,
         rating: 4.7,
-        imageUrl: 'https://picsum.photos/400/300?4',
+        imageUrl: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80',
         features: ['Família', 'Espaçoso', 'Seguro'],
       ),
       BoatModel(
@@ -358,7 +358,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Angra dos Reis, RJ',
         price: 1800.0,
         rating: 4.6,
-        imageUrl: 'https://picsum.photos/400/300?5',
+        imageUrl: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80',
         features: ['Romântico', 'Luxo', 'Vista'],
       ),
       BoatModel(
@@ -367,7 +367,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Búzios, RJ',
         price: 2500.0,
         rating: 4.9,
-        imageUrl: 'https://picsum.photos/400/300?6',
+        imageUrl: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
         features: ['Esporte', 'Potente', 'Bar'],
       ),
       BoatModel(
@@ -376,7 +376,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Recife, PE',
         price: 600.0,
         rating: 4.2,
-        imageUrl: 'https://picsum.photos/400/300?7',
+        imageUrl: 'https://images.unsplash.com/photo-1468421870903-4df1664ac249?auto=format&fit=crop&w=800&q=80',
         features: ['Econômico', 'Prático'],
       ),
       BoatModel(
@@ -385,7 +385,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Ilhabela, SP',
         price: 3000.0,
         rating: 5.0,
-        imageUrl: 'https://picsum.photos/400/300?8',
+        imageUrl: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=800&q=80',
         features: ['Luxo', 'Jacuzzi', 'Bar'],
       ),
       BoatModel(
@@ -394,7 +394,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Vitória, ES',
         price: 3500.0,
         rating: 4.4,
-        imageUrl: 'https://picsum.photos/400/300?9',
+        imageUrl: 'https://images.unsplash.com/photo-1465414829459-d228b58caf6e?auto=format&fit=crop&w=800&q=80',
         features: ['Eventos', 'Espaçoso', 'Bar'],
       ),
       BoatModel(
@@ -403,7 +403,7 @@ class _SearchScreenState extends State<SearchScreen> {
         location: 'Fortaleza, CE',
         price: 5000.0,
         rating: 5.0,
-        imageUrl: 'https://picsum.photos/400/300?10',
+        imageUrl: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&w=800&q=80',
         features: ['Premium', 'Luxo', 'Piscina'],
       ),
     ];

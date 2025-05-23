@@ -10,6 +10,8 @@ import 'presentation/pages/favorites/favorites_screen.dart';
 import 'presentation/pages/profile/profile_screen.dart';
 import 'services/notification_service.dart';
 import 'presentation/pages/notifications/notification_test_screen.dart';
+import 'presentation/pages/conductor/conductor_details_screen.dart';
+import 'presentation/pages/booking_history/booking_history_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +37,8 @@ class MyApp extends StatelessWidget {
         '/favorites': (context) => const FavoritesScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/notifications': (context) => const NotificationTestScreen(),
+        '/conductor_profile': (context) => ConductorDetailsScreen(),
+        '/booking_history': (context) => BookingHistoryScreen(),
       },
     );
   }

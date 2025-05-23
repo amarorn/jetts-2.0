@@ -7,6 +7,8 @@ import '../../../design_system/tokens/app_spacing.dart';
 import '../../../design_system/tokens/app_typography.dart';
 import '../../../design_system/tokens/app_radius.dart';
 import 'widgets/floating_elements.dart';
+import 'package:wave/wave.dart';
+import 'package:wave/config.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -141,37 +143,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       decoration: BoxDecoration(
         gradient: page.gradient,
       ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            // Image Section
-            Expanded(
-              flex: 3,
-              child: Container(
-                padding: const EdgeInsets.all(AppSpacing.xxl),
-                child: Center(
-                  child: Image.asset(
-                    page.image,
-                    height: size.height * 0.4,
-                    fit: BoxFit.contain,
-                  ).animate().fadeIn(delay: 200.ms).scale(
-                    begin: const Offset(0.8, 0.8),
-                    duration: 600.ms,
-                    curve: Curves.elasticOut,
-                  ),
-                ),
-              ),
-            ),
-
-            // Content Section
-            Expanded(
-              flex: 2,
-              child: Container(
+      child: Stack(
+        children: [
+          // Conteúdo principal centralizado
+          SafeArea(
+            child: Center(
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    // Title
+                    // Título
                     Text(
                       page.title,
                       style: AppTypography.displayMedium.copyWith(
@@ -183,10 +166,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       begin: 0.3,
                       duration: 500.ms,
                     ),
-
                     const SizedBox(height: AppSpacing.lg),
-
-                    // Subtitle
+                    // Subtítulo
                     Text(
                       page.subtitle,
                       style: AppTypography.titleLarge.copyWith(
@@ -198,10 +179,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       begin: 0.3,
                       duration: 500.ms,
                     ),
-
                     const SizedBox(height: AppSpacing.md),
-
-                    // Description
+                    // Descrição
                     Text(
                       page.description,
                       style: AppTypography.bodyLarge.copyWith(
@@ -213,12 +192,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       begin: 0.3,
                       duration: 500.ms,
                     ),
+                    const SizedBox(height: AppSpacing.xl),
                   ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          // Animação de mar na base da tela
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: SizedBox(
+              height: 100,
+              child: WaveWidget(
+                config: CustomConfig(
+                  gradients: [
+                    [Color(0xFF2196F3), Color(0xFF21CBF3)],
+                    [Color(0xFF21CBF3), Color(0xFF2196F3)],
+                  ],
+                  durations: [35000, 19440],
+                  heightPercentages: [0.60, 0.65],
+                  blur: MaskFilter.blur(BlurStyle.solid, 5),
+                  gradientBegin: Alignment.bottomLeft,
+                  gradientEnd: Alignment.topRight,
+                ),
+                waveAmplitude: 0,
+                size: Size(double.infinity, 100),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -234,6 +234,54 @@ class _BoatDetailsScreenState extends State<BoatDetailsScreen>
                   ),
                   const SizedBox(height: 16),
                   AmenitiesGrid(amenities: widget.boat.amenities),
+                  const SizedBox(height: 24),
+                  // Avatar, nome e qualificação do condutor
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            '/conductor_profile',
+                            arguments: {
+                              'name': 'Carlos Andrade',
+                              'id': '1',
+                              'photoUrl': 'https://randomuser.me/api/portraits/men/32.jpg',
+                            },
+                          );
+                        },
+                        child: CircleAvatar(
+                          radius: 28,
+                          backgroundImage: NetworkImage(
+                            // Mock de foto do condutor
+                            'https://randomuser.me/api/portraits/men/32.jpg',
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Carlos Andrade', // Mock de nome
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Icon(Icons.star_rounded, color: Colors.amber, size: 20),
+                              const SizedBox(width: 4),
+                              Text(
+                                '4.9', // Mock de nota
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(width: 4),
+                              Text('Condutor', style: Theme.of(context).textTheme.bodySmall),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -384,6 +432,19 @@ class _BoatDetailsScreenState extends State<BoatDetailsScreen>
         ),
       ),
       actions: [
+        Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: IconButton(
+            onPressed: () {
+              // Implementar compartilhamento
+            },
+            icon: const Icon(Icons.share_rounded, color: Colors.white),
+          ),
+        ),
         Container(
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(

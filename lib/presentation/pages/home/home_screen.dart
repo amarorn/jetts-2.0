@@ -16,8 +16,10 @@ import 'widgets/quick_actions.dart';
 import '../../../domain/models/boat_model.dart';
 import '../../../domain/models/category_model.dart';
 import '../../../domain/models/destination_model.dart';
-import 'widgets/custom_bottom_nav.dart';
+import 'widgets/wave_bottom_nav.dart';
 import '../boat_details/boat_details_screen.dart';
+import 'widgets/curved_bottom_nav.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -99,8 +101,16 @@ class _HomeScreenState extends State<HomeScreen>
       floatingActionButton: ScaleTransition(
         scale: _fabAnimationController,
         child: FloatingActionButton(
-          onPressed: () {
-            // Mostrar tela de SOS
+          onPressed: () async {
+            const emergencyNumber = '190';
+            final Uri phoneUri = Uri(scheme: 'tel', path: emergencyNumber);
+            if (await canLaunchUrl(phoneUri)) {
+              await launchUrl(phoneUri);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Não foi possível iniciar a ligação.')),
+              );
+            }
           },
           backgroundColor: theme.colorScheme.error,
           child: const Icon(
@@ -109,29 +119,45 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNav(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
+        onTap: (index) {
+          setState(() => _currentIndex = index);
+          if (index == 0) {
+            Navigator.of(context).pushNamed('/search');
+          } else if (index == 1) {
+            Navigator.of(context).pushNamed('/favorites');
+          } else if (index == 2) {
+            Navigator.of(context).pushNamed('/profile');
+          } else if (index == 3) {
+            // Notificações
+          } else if (index == 4) {
+            // Configurações
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
         items: const [
-          NavItem(
-            label: 'Início',
-            icon: Icons.home_outlined,
-            selectedIcon: Icons.home_rounded,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search_outlined),
+            label: 'Buscar',
           ),
-          NavItem(
-            label: 'Explorar',
-            icon: Icons.explore_outlined,
-            selectedIcon: Icons.explore_rounded,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_outline_rounded),
+            label: 'Favoritos',
           ),
-          NavItem(
-            label: 'Reservas',
-            icon: Icons.calendar_today_outlined,
-            selectedIcon: Icons.calendar_today_rounded,
-          ),
-          NavItem(
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline_rounded),
             label: 'Perfil',
-            icon: Icons.person_outline_rounded,
-            selectedIcon: Icons.person_rounded,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_none_rounded),
+            label: 'Notificações',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_outlined),
+            label: 'Configurações',
           ),
         ],
       ),
@@ -276,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen>
           icon: Icons.history_rounded,
           color: AppColors.primaryBlue500,
           onTap: () {
-            // Navegar para histórico
+            Navigator.of(context).pushNamed('/booking_history');
           },
         ),
         QuickAction(
@@ -713,7 +739,7 @@ class _HomeScreenState extends State<HomeScreen>
         location: 'Rio de Janeiro, RJ',
         price: 1500.0,
         rating: 4.8,
-        imageUrl: 'https://picsum.photos/400/300',
+        imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
         features: ['Luxo', 'Piscina', 'Jacuzzi'],
         discount: 20,
       ),
@@ -723,7 +749,7 @@ class _HomeScreenState extends State<HomeScreen>
         location: 'São Paulo, SP',
         price: 2000.0,
         rating: 4.9,
-        imageUrl: 'https://picsum.photos/400/300',
+        imageUrl: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80',
         features: ['Moderno', 'Bar', 'Churrasqueira'],
       ),
       BoatModel(
@@ -732,7 +758,7 @@ class _HomeScreenState extends State<HomeScreen>
         location: 'Florianópolis, SC',
         price: 800.0,
         rating: 4.5,
-        imageUrl: 'https://picsum.photos/400/300',
+        imageUrl: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
         features: ['Rápido', 'Econômico', 'Prático'],
       ),
     ];
@@ -795,7 +821,7 @@ class _HomeScreenState extends State<HomeScreen>
         location: 'Rio de Janeiro, RJ',
         price: 1500.0,
         rating: 4.8,
-        imageUrl: 'https://picsum.photos/400/300',
+        imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
         features: ['Luxo', 'Piscina', 'Jacuzzi'],
         status: 'Confirmado',
         date: '15/05/2024',
@@ -806,7 +832,7 @@ class _HomeScreenState extends State<HomeScreen>
         location: 'São Paulo, SP',
         price: 2000.0,
         rating: 4.9,
-        imageUrl: 'https://picsum.photos/400/300',
+        imageUrl: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80',
         features: ['Moderno', 'Bar', 'Churrasqueira'],
         status: 'Pendente',
         date: '20/05/2024',

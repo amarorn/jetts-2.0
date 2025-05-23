@@ -4,6 +4,8 @@ import '../../tokens/app_spacing.dart';
 import '../../tokens/app_typography.dart';
 import '../../tokens/app_radius.dart';
 import '../../../domain/models/boat_model.dart';
+import 'package:wave/wave.dart';
+import 'package:wave/config.dart';
 
 class BoatCard extends StatelessWidget {
   final BoatModel boat;
@@ -51,6 +53,8 @@ class BoatCard extends StatelessWidget {
                     child: Image.network(
                       boat.imageUrl,
                       fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
                     ),
                   ),
                 ),
