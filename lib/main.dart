@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Jets App',
       theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.dark,
       initialRoute: '/',
       routes: {
         '/': (context) => const OnboardingScreen(),
