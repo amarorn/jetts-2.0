@@ -8,6 +8,8 @@ import '../../../design_system/tokens/app_colors.dart';
 import '../../../design_system/tokens/app_spacing.dart';
 import '../../../design_system/tokens/app_typography.dart';
 
+enum UserType { client, owner }
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -23,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
   bool _acceptTerms = false;
+  UserType _selectedUserType = UserType.client;
 
   @override
   void dispose() {
@@ -50,14 +53,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       // Simular delay de registro
       await Future.delayed(const Duration(seconds: 2));
-      
+
       if (!mounted) return;
-      
-      // Navegar para a tela inicial
-      Navigator.of(context).pushReplacementNamed('/home');
+
+      // Navegar para a home baseada no tipo de usuário
+      final route =
+          _selectedUserType == UserType.client ? '/home' : '/owner-home';
+      Navigator.of(context).pushReplacementNamed(route);
     } catch (e) {
       if (!mounted) return;
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Erro ao fazer registro: ${e.toString()}'),
@@ -83,40 +88,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-            child: Container(
-              height: size.height - MediaQuery.of(context).padding.top,
-              padding: const EdgeInsets.all(AppSpacing.xl),
-              child: Column(
-                children: [
-                  // Back Button
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(
-                          Icons.arrow_back_rounded,
-                          color: Colors.white,
-                        ),
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Back Button
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.white,
                       ),
-                    ],
-                  ).animate().fadeIn(delay: 200.ms),
-                  
-                  const SizedBox(height: AppSpacing.lg),
-                  
-                  // Header
-                  _buildHeader(),
-                  
-                  const SizedBox(height: AppSpacing.xxl),
-                  
-                  // Register Form
-                  Expanded(
-                    child: _buildRegisterForm(theme),
-                  ),
-                  
-                  // Footer
-                  _buildFooter(),
-                ],
-              ),
+                    ),
+                  ],
+                ).animate().fadeIn(delay: 200.ms),
+
+                const SizedBox(height: AppSpacing.lg),
+
+                // Header
+                _buildHeader(),
+
+                const SizedBox(height: AppSpacing.xxl),
+
+                // User Type Selector
+                _buildUserTypeSelector(),
+
+                const SizedBox(height: AppSpacing.lg),
+
+                // Register Form
+                _buildRegisterForm(theme),
+
+                // Footer
+                _buildFooter(),
+              ],
             ),
           ),
         ),
@@ -135,9 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           textAlign: TextAlign.center,
         ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.3),
-        
         const SizedBox(height: AppSpacing.sm),
-        
         Text(
           'Junte-se à nossa comunidade náutica',
           style: AppTypography.bodyLarge.copyWith(
@@ -146,6 +150,103 @@ class _RegisterScreenState extends State<RegisterScreen> {
           textAlign: TextAlign.center,
         ).animate().fadeIn(delay: 600.ms).slideY(begin: 0.3),
       ],
+    );
+  }
+
+  Widget _buildUserTypeSelector() {
+    return GlassCard(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Tipo de Conta',
+              style: AppTypography.titleMedium.copyWith(
+                fontWeight: AppTypography.semiBold,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.md),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildUserTypeCard(
+                    type: UserType.client,
+                    title: 'Cliente',
+                    subtitle: 'Alugar barcos',
+                    icon: Icons.person_outline_rounded,
+                    color: AppColors.primaryBlue500,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: _buildUserTypeCard(
+                    type: UserType.owner,
+                    title: 'Proprietário',
+                    subtitle: 'Alugar meus barcos',
+                    icon: Icons.business_outlined,
+                    color: AppColors.secondaryOrange500,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ).animate().fadeIn(delay: 700.ms).slideY(begin: 0.3);
+  }
+
+  Widget _buildUserTypeCard({
+    required UserType type,
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color color,
+  }) {
+    final isSelected = _selectedUserType == type;
+
+    return GestureDetector(
+      onTap: () => setState(() => _selectedUserType = type),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.all(AppSpacing.md),
+        decoration: BoxDecoration(
+          color: isSelected ? color : Colors.white,
+          border: Border.all(
+            color: color,
+            width: isSelected ? 2 : 1,
+          ),
+          borderRadius: BorderRadius.circular(AppSpacing.md),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              size: 32,
+              color: isSelected ? Colors.white : color,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              title,
+              style: AppTypography.titleSmall.copyWith(
+                fontWeight: AppTypography.semiBold,
+                color: isSelected ? Colors.white : color,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              subtitle,
+              style: AppTypography.bodySmall.copyWith(
+                color: isSelected
+                    ? Colors.white.withOpacity(0.9)
+                    : color.withOpacity(0.8),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -168,10 +269,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 }
                 return null;
               },
-            ).animate().fadeIn(delay: 800.ms).slideX(begin: -0.3),
-            
+            ).animate().fadeIn(delay: 900.ms).slideX(begin: -0.3),
+
             const SizedBox(height: AppSpacing.lg),
-            
+
             // Email Field
             AppTextField(
               label: 'Email',
@@ -188,10 +289,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 }
                 return null;
               },
-            ).animate().fadeIn(delay: 1000.ms).slideX(begin: -0.3),
-            
+            ).animate().fadeIn(delay: 1100.ms).slideX(begin: -0.3),
+
             const SizedBox(height: AppSpacing.lg),
-            
+
             // Password Field
             AppTextField(
               label: 'Senha',
@@ -209,10 +310,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 }
                 return null;
               },
-            ).animate().fadeIn(delay: 1200.ms).slideX(begin: -0.3),
-            
+            ).animate().fadeIn(delay: 1300.ms).slideX(begin: -0.3),
+
             const SizedBox(height: AppSpacing.lg),
-            
+
             // Confirm Password Field
             AppTextField(
               label: 'Confirmar Senha',
@@ -229,10 +330,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 }
                 return null;
               },
-            ).animate().fadeIn(delay: 1400.ms).slideX(begin: -0.3),
-            
+            ).animate().fadeIn(delay: 1500.ms).slideX(begin: -0.3),
+
             const SizedBox(height: AppSpacing.lg),
-            
+
             // Terms Checkbox
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -278,16 +379,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ],
-            ).animate().fadeIn(delay: 1600.ms),
-            
+            ).animate().fadeIn(delay: 1700.ms),
+
             const SizedBox(height: AppSpacing.xl),
-            
+
             // Register Button
             AppButton(
               text: 'Criar Conta',
               isLoading: _isLoading,
               onPressed: _handleRegister,
-            ).animate().fadeIn(delay: 1800.ms).slideY(begin: 0.3),
+            ).animate().fadeIn(delay: 1900.ms).slideY(begin: 0.3),
           ],
         ),
       ),
@@ -318,6 +419,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ],
-    ).animate().fadeIn(delay: 2000.ms);
+    ).animate().fadeIn(delay: 2100.ms);
   }
-} 
+}

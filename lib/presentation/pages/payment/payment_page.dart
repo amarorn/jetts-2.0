@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:jetts_2_0/design_system/design_system.dart';
+import '../../../design_system/components/inputs/app_text_field.dart';
+import '../../../design_system/components/buttons/app_button.dart';
 
-class PaymentPage extends StatelessWidget {
+class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
+
+  @override
+  State<PaymentPage> createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
+  final TextEditingController _cardNumberController = TextEditingController();
+  final TextEditingController _expiryController = TextEditingController();
+  final TextEditingController _cvvController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _cardNumberController.dispose();
+    _expiryController.dispose();
+    _cvvController.dispose();
+    _nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +56,7 @@ class PaymentPage extends StatelessWidget {
                   ],
                 ),
               ),
-              JettsButton(
+              AppButton(
                 onPressed: () {
                   // Implementar lógica de pagamento
                 },
@@ -61,7 +81,8 @@ class PaymentPage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        JettsTextField(
+        AppTextField(
+          controller: _cardNumberController,
           label: 'Número do Cartão',
           hint: '0000 0000 0000 0000',
           keyboardType: TextInputType.number,
@@ -70,7 +91,8 @@ class PaymentPage extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: JettsTextField(
+              child: AppTextField(
+                controller: _expiryController,
                 label: 'Data de Validade',
                 hint: 'MM/AA',
                 keyboardType: TextInputType.number,
@@ -78,7 +100,8 @@ class PaymentPage extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: JettsTextField(
+              child: AppTextField(
+                controller: _cvvController,
                 label: 'CVV',
                 hint: '123',
                 keyboardType: TextInputType.number,
@@ -87,11 +110,12 @@ class PaymentPage extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        JettsTextField(
+        AppTextField(
+          controller: _nameController,
           label: 'Nome no Cartão',
           hint: 'Como aparece no cartão',
         ),
       ],
     );
   }
-} 
+}

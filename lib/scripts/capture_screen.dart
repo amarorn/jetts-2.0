@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -21,9 +22,11 @@ class _ScreenCaptureState extends State<ScreenCapture> {
 
   Future<void> _captureScreen() async {
     try {
-      final RenderRepaintBoundary boundary = _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      final RenderRepaintBoundary boundary = _globalKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
       final ui.Image image = await boundary.toImage(pixelRatio: 1.0);
-      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      final ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData != null) {
         final Uint8List pngBytes = byteData.buffer.asUint8List();
         final File file = File('assets/images/app_icon.png');
@@ -64,4 +67,4 @@ class _ScreenCaptureState extends State<ScreenCapture> {
 
 void main() {
   runApp(const ScreenCapture());
-} 
+}

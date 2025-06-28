@@ -18,6 +18,7 @@ import '../../../domain/models/category_model.dart';
 import '../../../domain/models/destination_model.dart';
 import 'widgets/custom_bottom_nav.dart';
 import '../boat_details/boat_details_screen.dart';
+import '../owner/client_support_chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -292,7 +293,11 @@ class _HomeScreenState extends State<HomeScreen>
           icon: Icons.support_agent_rounded,
           color: AppColors.success500,
           onTap: () {
-            // Navegar para suporte
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ClientSupportChatScreen(),
+              ),
+            );
           },
         ),
       ],
@@ -395,9 +400,16 @@ class _HomeScreenState extends State<HomeScreen>
                     capacity: 10,
                     length: 12.5,
                     amenities: [
-                      AmenityModel(name: 'Piscina', icon: Icons.pool, isAvailable: true),
-                      AmenityModel(name: 'Bar', icon: Icons.local_bar, isAvailable: false),
-                      AmenityModel(name: 'Jacuzzi', icon: Icons.hot_tub, isAvailable: true),
+                      AmenityModel(
+                          name: 'Piscina', icon: Icons.pool, isAvailable: true),
+                      AmenityModel(
+                          name: 'Bar',
+                          icon: Icons.local_bar,
+                          isAvailable: false),
+                      AmenityModel(
+                          name: 'Jacuzzi',
+                          icon: Icons.hot_tub,
+                          isAvailable: true),
                     ],
                     specifications: [
                       SpecificationModel(name: 'Ano', value: '2022'),
@@ -411,7 +423,8 @@ class _HomeScreenState extends State<HomeScreen>
                     reviews: [
                       ReviewModel(
                         userName: 'Maria',
-                        userAvatar: 'https://randomuser.me/api/portraits/women/1.jpg',
+                        userAvatar:
+                            'https://randomuser.me/api/portraits/women/1.jpg',
                         rating: 4.8,
                         comment: 'Barco excelente!',
                         date: DateTime.now().subtract(const Duration(days: 2)),
@@ -463,7 +476,8 @@ class _HomeScreenState extends State<HomeScreen>
               final category = _getCategories()[index];
               return Padding(
                 padding: EdgeInsets.only(
-                  right: index == _getCategories().length - 1 ? 0 : AppSpacing.sm,
+                  right:
+                      index == _getCategories().length - 1 ? 0 : AppSpacing.sm,
                 ),
                 child: Column(
                   children: [
@@ -664,7 +678,8 @@ class _HomeScreenState extends State<HomeScreen>
                                 ),
                                 decoration: BoxDecoration(
                                   color: theme.colorScheme.primaryContainer,
-                                  borderRadius: BorderRadius.circular(AppRadius.sm),
+                                  borderRadius:
+                                      BorderRadius.circular(AppRadius.sm),
                                 ),
                                 child: Text(
                                   booking.status ?? 'Sem status',
@@ -813,4 +828,4 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     ];
   }
-} 
+}

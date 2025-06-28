@@ -1,8 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
   // Criar diretório se não existir
   final directory = Directory('assets/images');
   if (!directory.existsSync()) {
@@ -35,11 +36,11 @@ void main() {
 
   // Finalizar e salvar
   final picture = recorder.endRecording();
-  final image = picture.toImage(size.width.toInt(), size.height.toInt());
-  final byteData = image.toByteData(format: ui.ImageByteFormat.png);
+  final image = await picture.toImage(size.width.toInt(), size.height.toInt());
+  final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
   final buffer = byteData!.buffer.asUint8List();
 
   // Salvar arquivo
   final file = File('assets/images/app_icon.png');
-  file.writeAsBytesSync(buffer);
-} 
+  await file.writeAsBytes(buffer);
+}

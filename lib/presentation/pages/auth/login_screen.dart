@@ -41,8 +41,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (!mounted) return;
 
-      // Navegar para a tela inicial
-      Navigator.of(context).pushReplacementNamed('/home');
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+
+      if (email == 'user@teste.com' && password == '123456') {
+        Navigator.of(context).pushReplacementNamed('/home');
+      } else if (email == 'admin@teste.com' && password == '123456') {
+        Navigator.of(context).pushReplacementNamed('/owner-home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Usuário ou senha inválidos!'),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+      }
     } catch (e) {
       if (!mounted) return;
 
@@ -81,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             // Background Pattern
             _buildBackgroundPattern(),
-            
+
             // Main Content
             SafeArea(
               child: SingleChildScrollView(
@@ -91,17 +104,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: AppSpacing.xxl),
-                      
+
                       // Logo and Welcome
                       _buildHeader(),
-                      
+
                       const SizedBox(height: AppSpacing.huge),
-                      
+
                       // Login Form
                       _buildLoginForm(theme),
-                      
+
                       const Spacer(),
-                      
+
                       // Footer
                       _buildFooter(theme),
                     ],
@@ -144,13 +157,13 @@ class _LoginScreenState extends State<LoginScreen> {
             color: Colors.white,
           ),
         ).animate().scale(
-          delay: 200.ms,
-          duration: 600.ms,
-          curve: Curves.elasticOut,
-        ),
-        
+              delay: 200.ms,
+              duration: 600.ms,
+              curve: Curves.elasticOut,
+            ),
+
         const SizedBox(height: AppSpacing.xl),
-        
+
         // Welcome Text
         Text(
           'Bem-vindo de volta!',
@@ -160,9 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           textAlign: TextAlign.center,
         ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.3),
-        
+
         const SizedBox(height: AppSpacing.sm),
-        
+
         Text(
           'Entre na sua conta para continuar navegando',
           style: AppTypography.bodyLarge.copyWith(
@@ -198,9 +211,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 return null;
               },
             ).animate().fadeIn(delay: 800.ms).slideX(begin: -0.3),
-            
+
             const SizedBox(height: AppSpacing.lg),
-            
+
             // Password Field
             AppTextField(
               label: 'Senha',
@@ -218,9 +231,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 return null;
               },
             ).animate().fadeIn(delay: 1000.ms).slideX(begin: -0.3),
-            
+
             const SizedBox(height: AppSpacing.lg),
-            
+
             // Remember Me & Forgot Password
             Row(
               children: [
@@ -256,18 +269,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ).animate().fadeIn(delay: 1200.ms),
-            
+
             const SizedBox(height: AppSpacing.xl),
-            
+
             // Login Button
             AppButton(
               text: 'Entrar',
               isLoading: _isLoading,
               onPressed: _handleLogin,
             ).animate().fadeIn(delay: 1400.ms).slideY(begin: 0.3),
-            
+
             const SizedBox(height: AppSpacing.xl),
-            
+
             // Divider
             Row(
               children: [
@@ -277,7 +290,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                   child: Text(
                     'ou continue com',
                     style: AppTypography.bodyMedium.copyWith(
@@ -292,9 +306,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ).animate().fadeIn(delay: 1600.ms),
-            
+
             const SizedBox(height: AppSpacing.xl),
-            
+
             // Social Login Buttons
             Row(
               children: [
@@ -348,9 +362,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ],
         ).animate().fadeIn(delay: 2000.ms),
-        
         const SizedBox(height: AppSpacing.lg),
-        
         Text(
           'Ao continuar, você concorda com nossos\nTermos de Uso e Política de Privacidade',
           style: AppTypography.bodySmall.copyWith(
@@ -414,4 +426,4 @@ class _SocialButton extends StatelessWidget {
       ),
     );
   }
-} 
+}

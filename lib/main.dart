@@ -5,6 +5,7 @@ import 'presentation/pages/onboarding/onboarding_screen.dart';
 import 'presentation/pages/auth/login_screen.dart';
 import 'presentation/pages/auth/register_screen.dart';
 import 'presentation/pages/home/home_screen.dart';
+import 'presentation/pages/owner/owner_home_screen.dart';
 import 'presentation/pages/search/search_screen.dart';
 import 'presentation/pages/favorites/favorites_screen.dart';
 import 'presentation/pages/profile/profile_screen.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/home': (context) => const HomeScreen(),
+        '/owner-home': (context) => const OwnerHomeScreen(),
         '/search': (context) => const SearchScreen(),
         '/favorites': (context) => const FavoritesScreen(),
         '/profile': (context) => const ProfileScreen(),
@@ -38,4 +40,4 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-} 
+}
