@@ -97,182 +97,193 @@ class _OwnerBookingsScreenState extends State<OwnerBookingsScreen> {
     required bool isNew,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 24),
+      margin: const EdgeInsets.only(bottom: 28),
       decoration: BoxDecoration(
         color: AppColors.primaryBlue900.withOpacity(0.85),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: Colors.white.withOpacity(0.18), width: 1.2),
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: Colors.white.withOpacity(0.25), width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.07),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 22),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          Padding(
+            padding: EdgeInsets.only(top: isNew ? 18 : 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: AppTypography.titleMedium.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white.withOpacity(0.85),
+                  ),
+                ),
+                Text(
+                  boat,
+                  style: AppTypography.bodyMedium.copyWith(
+                    color: AppColors.primaryBlue100,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Row(
                   children: [
-                    Text(
-                      name,
-                      style: AppTypography.titleLarge.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryBlue900),
+                    Icon(Icons.calendar_today_rounded,
+                        color: AppColors.primaryBlue200, size: 20),
+                    const SizedBox(width: 6),
+                    Text('Data:',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primaryBlue200)),
+                    const SizedBox(width: 4),
+                    Text(date,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600, color: Colors.white)),
+                    const SizedBox(width: 16),
+                    Icon(Icons.people_alt_rounded,
+                        color: AppColors.secondaryOrange400, size: 20),
+                    const SizedBox(width: 6),
+                    Text('Pessoas:',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.secondaryOrange400)),
+                    const SizedBox(width: 4),
+                    Text(people,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600, color: Colors.white)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(Icons.attach_money_rounded,
+                        color: AppColors.success500, size: 20),
+                    const SizedBox(width: 6),
+                    Text('Valor:',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.success500)),
+                    const SizedBox(width: 4),
+                    Text(value,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.greenAccent,
+                            fontSize: 16)),
+                  ],
+                ),
+                if (occasion.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(Icons.celebration_rounded,
+                          color: AppColors.tertiaryGold500, size: 20),
+                      const SizedBox(width: 6),
+                      Text('Ocasião:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.tertiaryGold500)),
+                      const SizedBox(width: 4),
+                      Text(occasion,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white)),
+                    ],
+                  ),
+                ],
+                const SizedBox(height: 22),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(Icons.check, size: 20),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        label: const Text('Aprovar'),
+                      ),
                     ),
-                    Text(
-                      boat,
-                      style: AppTypography.bodyMedium.copyWith(
-                          color: AppColors.primaryBlue400,
-                          fontWeight: FontWeight.w600),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const OwnerChatScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.chat_bubble_outline_rounded,
+                            size: 20),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.secondaryOrange500,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        label: const Text('Chat'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(Icons.close, size: 20),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        label: const Text('Recusar'),
+                      ),
                     ),
                   ],
                 ),
-              ),
-              if (isNew)
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryBlue100,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    'NOVA',
-                    style: TextStyle(
-                      color: AppColors.primaryBlue700,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              Icon(Icons.calendar_today_rounded,
-                  color: AppColors.primaryBlue500, size: 20),
-              const SizedBox(width: 6),
-              Text('Data:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primaryBlue700)),
-              const SizedBox(width: 4),
-              Text(date, style: const TextStyle(fontWeight: FontWeight.w600)),
-              const SizedBox(width: 16),
-              Icon(Icons.people_alt_rounded,
-                  color: AppColors.secondaryOrange500, size: 20),
-              const SizedBox(width: 6),
-              Text('Pessoas:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.secondaryOrange700)),
-              const SizedBox(width: 4),
-              Text(people, style: const TextStyle(fontWeight: FontWeight.w600)),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Icon(Icons.attach_money_rounded,
-                  color: AppColors.success500, size: 20),
-              const SizedBox(width: 6),
-              Text('Valor:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.success500)),
-              const SizedBox(width: 4),
-              Text(value,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.green,
-                      fontSize: 16)),
-            ],
-          ),
-          if (occasion.isNotEmpty) ...[
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Icon(Icons.celebration_rounded,
-                    color: AppColors.tertiaryGold700, size: 20),
-                const SizedBox(width: 6),
-                Text('Ocasião:',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.tertiaryGold800)),
-                const SizedBox(width: 4),
-                Text(occasion,
-                    style: const TextStyle(fontWeight: FontWeight.w600)),
               ],
             ),
-          ],
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.check, size: 18),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                  ),
-                  label: const Text('Aprovar',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const OwnerChatScreen(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.chat_bubble_outline_rounded, size: 18),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.secondaryOrange500,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                  ),
-                  label: const Text('Chat',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.close, size: 18),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                  ),
-                  label: const Text('Recusar',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              ),
-            ],
           ),
+          if (isNew)
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryBlue100,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Text(
+                  'NOVA',
+                  style: TextStyle(
+                    color: AppColors.primaryBlue700,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

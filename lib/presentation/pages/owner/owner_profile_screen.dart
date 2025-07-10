@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../design_system/tokens/app_colors.dart';
 import '../../../design_system/tokens/app_typography.dart';
+import 'boat_register_basic_screen.dart';
+import 'boat_register_stepper_screen.dart';
 
 class OwnerProfileScreen extends StatelessWidget {
   const OwnerProfileScreen({super.key});
@@ -69,6 +71,30 @@ class OwnerProfileScreen extends StatelessWidget {
                     AppColors.tertiaryGold500),
               ],
             ),
+            const SizedBox(height: 24),
+            Center(
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const BoatRegisterStepperScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.add, size: 20),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryBlue500,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                ),
+                label: const Text('Adicionar Barco',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+            const SizedBox(height: 16),
             const SizedBox(height: 40),
             Center(
               child: ElevatedButton.icon(
