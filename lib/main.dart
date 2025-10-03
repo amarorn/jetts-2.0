@@ -7,8 +7,13 @@ import 'presentation/pages/auth/register_screen.dart';
 import 'presentation/pages/home/home_screen.dart';
 import 'presentation/pages/owner/owner_home_screen.dart';
 import 'presentation/pages/search/search_screen.dart';
+import 'presentation/pages/search/map_search_screen.dart';
 import 'presentation/pages/favorites/favorites_screen.dart';
 import 'presentation/pages/profile/profile_screen.dart';
+import 'presentation/pages/kyc/kyc_verification_screen.dart';
+import 'presentation/pages/owner/owner_dashboard_screen.dart';
+import 'presentation/pages/owner/dynamic_pricing_screen.dart';
+import 'presentation/pages/reviews/detailed_review_screen.dart';
 // import 'services/notification_service.dart'; // Removido temporariamente
 // import 'presentation/pages/notifications/notification_test_screen.dart'; // Removido temporariamente
 
@@ -34,9 +39,36 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/owner-home': (context) => const OwnerHomeScreen(),
         '/search': (context) => const SearchScreen(),
+        '/map-search': (context) => const MapSearchScreen(),
         '/favorites': (context) => const FavoritesScreen(),
         '/profile': (context) => const ProfileScreen(),
+        '/kyc-verification': (context) => const KYCVerificationScreen(),
+        '/owner-dashboard': (context) => const OwnerDashboardScreen(),
         // '/notifications': (context) => const NotificationTestScreen(), // Removido temporariamente
+      },
+      onGenerateRoute: (settings) {
+        // Rotas com parâmetros
+        if (settings.name == '/dynamic-pricing') {
+          final args = settings.arguments as Map<String, String>?;
+          return MaterialPageRoute(
+            builder: (context) => DynamicPricingScreen(
+              boatId: args?['boatId'] ?? '',
+              boatName: args?['boatName'] ?? '',
+            ),
+          );
+        }
+        
+        if (settings.name == '/detailed-review') {
+          final args = settings.arguments as Map<String, String>?;
+          return MaterialPageRoute(
+            builder: (context) => DetailedReviewScreen(
+              boatId: args?['boatId'] ?? '',
+              boatName: args?['boatName'] ?? '',
+            ),
+          );
+        }
+        
+        return null;
       },
     );
   }
