@@ -9,12 +9,12 @@ import 'presentation/pages/owner/owner_home_screen.dart';
 import 'presentation/pages/search/search_screen.dart';
 import 'presentation/pages/favorites/favorites_screen.dart';
 import 'presentation/pages/profile/profile_screen.dart';
-import 'services/notification_service.dart';
-import 'presentation/pages/notifications/notification_test_screen.dart';
+// import 'services/notification_service.dart'; // Removido temporariamente
+// import 'presentation/pages/notifications/notification_test_screen.dart'; // Removido temporariamente
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService().initialize();
+  // await NotificationService().initialize(); // Removido temporariamente
   runApp(const MyApp());
 }
 
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/search': (context) => const SearchScreen(),
         '/favorites': (context) => const FavoritesScreen(),
         '/profile': (context) => const ProfileScreen(),
-        '/notifications': (context) => const NotificationTestScreen(),
+        // '/notifications': (context) => const NotificationTestScreen(), // Removido temporariamente
       },
     );
   }

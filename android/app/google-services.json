@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "653955515555",
+    "project_id": "jetss-1e0f9",
+    "storage_bucket": "jetss-1e0f9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653955515555:android:039ff4adf450462fb7eb16",
+        "android_client_info": {
+          "package_name": "com.example.jetts_2_0"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgyIJbRrWTbFdJUbq6LihcKSFM6yso72w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

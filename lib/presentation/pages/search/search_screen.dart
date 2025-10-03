@@ -5,7 +5,7 @@ import '../../../design_system/tokens/app_typography.dart';
 import '../../../design_system/tokens/app_colors.dart';
 import '../../../design_system/tokens/app_radius.dart';
 import '../../../design_system/components/cards/boat_card.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
+// import 'package:speech_to_text/speech_to_text.dart' as stt; // Removido temporariamente
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
@@ -28,9 +28,9 @@ class _SearchScreenState extends State<SearchScreen> {
   String _selectedOrder = 'Relevância';
 
   List<BoatModel> _results = [];
-  late stt.SpeechToText _speech;
-  bool _isListening = false;
-  String _voiceText = '';
+  // late stt.SpeechToText _speech; // Removido temporariamente
+  // bool _isListening = false; // Removido temporariamente
+  // String _voiceText = ''; // Removido temporariamente
 
   // Estado para clima
   Map<String, dynamic>? _weatherData;
@@ -67,7 +67,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     _results = _mockResults();
-    _speech = stt.SpeechToText();
+    // _speech = stt.SpeechToText(); // Removido temporariamente
     _initLocationAndWeather();
   }
 
@@ -138,24 +138,25 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _listen() async {
-    if (!_isListening) {
-      bool available = await _speech.initialize();
-      if (available) {
-        setState(() => _isListening = true);
-        _speech.listen(
-          onResult: (val) {
-            setState(() {
-              _voiceText = val.recognizedWords;
-              _searchController.text = _voiceText;
-              _results = _mockResults().where((b) => b.name.toLowerCase().contains(_voiceText.toLowerCase())).toList();
-            });
-          },
-        );
-      }
-    } else {
-      setState(() => _isListening = false);
-      _speech.stop();
-    }
+    // Funcionalidade de speech-to-text removida temporariamente
+    // if (!_isListening) {
+    //   bool available = await _speech.initialize();
+    //   if (available) {
+    //     setState(() => _isListening = true);
+    //     _speech.listen(
+    //       onResult: (val) {
+    //         setState(() {
+    //           _voiceText = val.recognizedWords;
+    //           _searchController.text = _voiceText;
+    //           _results = _mockResults().where((b) => b.name.toLowerCase().contains(_voiceText.toLowerCase())).toList();
+    //         });
+    //       },
+    //     );
+    //   }
+    // } else {
+    //   setState(() => _isListening = false);
+    //   _speech.stop();
+    // }
   }
 
   @override
@@ -270,7 +271,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintText: 'Buscar barcos, destinos...',
                 prefixIcon: const Icon(Icons.search_rounded),
                 suffixIcon: IconButton(
-                  icon: Icon(_isListening ? Icons.mic : Icons.mic_none),
+                  icon: const Icon(Icons.mic_none), // Speech-to-text removido temporariamente
                   onPressed: _listen,
                 ),
                 border: OutlineInputBorder(
