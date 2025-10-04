@@ -44,6 +44,57 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
+            // Status de verificação KYC
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              decoration: BoxDecoration(
+                color: AppColors.success500.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+                border: Border.all(color: AppColors.success500.withOpacity(0.3)),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.verified_user_rounded,
+                    color: AppColors.success500,
+                    size: 24,
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Identidade Verificada',
+                          style: AppTypography.titleSmall.copyWith(
+                            color: AppColors.success500,
+                            fontWeight: AppTypography.bold,
+                          ),
+                        ),
+                        Text(
+                          'Sua conta está verificada e segura',
+                          style: AppTypography.bodySmall.copyWith(
+                            color: AppColors.success500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pushNamed('/kyc-verification'),
+                    child: Text(
+                      'Ver Status',
+                      style: AppTypography.labelMedium.copyWith(
+                        color: AppColors.success500,
+                        fontWeight: AppTypography.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppSpacing.xl),
             // Atalhos
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

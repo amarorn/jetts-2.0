@@ -163,6 +163,35 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
 
           const SizedBox(height: AppSpacing.xl),
 
+          // Dashboard Button
+          Container(
+            width: double.infinity,
+            child: AppButton(
+              text: 'Ver Dashboard Completo',
+              onPressed: () => Navigator.of(context).pushNamed('/owner-dashboard'),
+              customChild: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.analytics_rounded,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Text(
+                    'Ver Dashboard Completo',
+                    style: AppTypography.labelLarge.copyWith(
+                      color: Colors.white,
+                      fontWeight: AppTypography.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ).animate().fadeIn(delay: 800.ms),
+
+          const SizedBox(height: AppSpacing.xl),
+
           // Quick Actions
           Text(
             'Ações Rápidas',
@@ -170,11 +199,11 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
               color: Colors.white,
               fontWeight: AppTypography.bold,
             ),
-          ).animate().fadeIn(delay: 800.ms),
+          ).animate().fadeIn(delay: 1000.ms),
 
           const SizedBox(height: AppSpacing.lg),
 
-          _buildQuickActions().animate().fadeIn(delay: 1000.ms),
+          _buildQuickActions().animate().fadeIn(delay: 1200.ms),
 
           const SizedBox(height: AppSpacing.xl),
 
@@ -266,11 +295,14 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
           children: [
             Expanded(
               child: _buildActionCard(
-                title: 'Relatórios',
-                icon: Icons.analytics_rounded,
+                title: 'Preços Dinâmicos',
+                icon: Icons.trending_up_rounded,
                 color: AppColors.success500,
                 onTap: () {
-                  // Implementar relatórios
+                  Navigator.of(context).pushNamed('/dynamic-pricing', arguments: {
+                    'boatId': 'sample_boat_id',
+                    'boatName': 'Meu Barco',
+                  });
                 },
               ),
             ),

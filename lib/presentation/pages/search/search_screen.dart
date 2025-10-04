@@ -264,27 +264,50 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
             const SizedBox(height: AppSpacing.lg),
-            // Campo de busca
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Buscar barcos, destinos...',
-                prefixIcon: const Icon(Icons.search_rounded),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.mic_none), // Speech-to-text removido temporariamente
-                  onPressed: _listen,
+            // Campo de busca com botão de mapa
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Buscar barcos, destinos...',
+                      prefixIcon: const Icon(Icons.search_rounded),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.mic_none), // Speech-to-text removido temporariamente
+                        onPressed: _listen,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(AppRadius.lg),
+                      ),
+                      filled: true,
+                      fillColor: theme.colorScheme.surface,
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _results = _mockResults().where((b) => b.name.toLowerCase().contains(value.toLowerCase())).toList();
+                      });
+                    },
+                  ),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(AppRadius.lg),
+                const SizedBox(width: AppSpacing.md),
+                Container(
+                  height: 56,
+                  width: 56,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                    borderRadius: BorderRadius.circular(AppRadius.lg),
+                  ),
+                  child: IconButton(
+                    onPressed: () => Navigator.of(context).pushNamed('/map-search'),
+                    icon: const Icon(
+                      Icons.map_rounded,
+                      color: Colors.white,
+                    ),
+                    tooltip: 'Buscar no Mapa',
+                  ),
                 ),
-                filled: true,
-                fillColor: theme.colorScheme.surface,
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _results = _mockResults().where((b) => b.name.toLowerCase().contains(value.toLowerCase())).toList();
-                });
-              },
+              ],
             ),
             const SizedBox(height: AppSpacing.lg),
             // Resultados

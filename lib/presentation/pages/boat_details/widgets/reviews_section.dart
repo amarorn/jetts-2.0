@@ -34,6 +34,27 @@ class ReviewsSection extends StatelessWidget {
             onPressed: () {},
             child: const Text('Ver todas avaliações'),
           ),
+        const SizedBox(height: AppSpacing.md),
+        // Botão para avaliar
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton.icon(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/detailed-review', arguments: {
+                'boatId': 'sample_boat_id',
+                'boatName': 'Nome do Barco',
+              });
+            },
+            icon: const Icon(Icons.rate_review_rounded),
+            label: const Text('Avaliar este Barco'),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

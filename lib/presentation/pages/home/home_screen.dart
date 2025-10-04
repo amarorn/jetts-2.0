@@ -265,19 +265,19 @@ class _HomeScreenState extends State<HomeScreen>
     return QuickActions(
       actions: [
         QuickAction(
+          title: 'Busca no Mapa',
+          icon: Icons.map_rounded,
+          color: AppColors.primaryBlue500,
+          onTap: () {
+            Navigator.of(context).pushNamed('/map-search');
+          },
+        ),
+        QuickAction(
           title: 'Favoritos',
           icon: Icons.favorite_rounded,
           color: AppColors.error500,
           onTap: () {
             // Navegar para favoritos
-          },
-        ),
-        QuickAction(
-          title: 'Histórico',
-          icon: Icons.history_rounded,
-          color: AppColors.primaryBlue500,
-          onTap: () {
-            // Navegar para histórico
           },
         ),
         QuickAction(
